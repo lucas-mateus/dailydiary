@@ -12,6 +12,7 @@ export function Button({title, ...rest }) {
         <TouchableOpacity
             style={styles.button}
             {...rest}
+            activeOpacity={0.6}
         >
             <Text style={styles.text}>{title}</Text>
         </TouchableOpacity>
@@ -27,7 +28,9 @@ const styles = StyleSheet.create({
 
     },
     button:{
-        backgroundColor:'#311b92',
+        padding: 10,
+        paddingHorizontal:80,
+        backgroundColor:'#0EA5E9',
         borderRadius:10,
         alignItems:'center',
         marginTop:20
