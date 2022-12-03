@@ -1,7 +1,6 @@
 import { Center, Text } from 'native-base'
 import React from 'react'
-import {Card} from '../componetes/Card'
-import { Button } from '../componetes/Button'
+import { Button } from '../components/Button'
 
 export function Welcome() {
   return (

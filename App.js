@@ -1,18 +1,32 @@
-import { NativeBaseProvider, Text, Center } from 'native-base';
+import { NativeBaseProvider } from 'native-base';
+import { NavigationContainer } from '@react-navigation/native'
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import { StatusBar } from 'react-native';
+import { CreateDiary } from './src/screens/CreateDiary'
+import Home from './src/screens/Home';
+
+const Tab = createBottomTabNavigator()
 
 export default function App() {
   return (
     <NativeBaseProvider>
       <StatusBar
-        barStyle='light-content'
+        barStyle='dark-content'
         backgroundColor='transparent'
         translucent
 
       />
-      <Center  flex={1} bgColor='dark.50'>
-        <Text color="dark.900" fontSize={24}>Open up App.js to start working on your app!</Text>
-      </Center>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={{
+            tabBarStyle: { backgroundColor: '#0EA5E9' },
+          }}
+        >
+          <Tab.Screen name="Diários" component={Home}/>
+          <Tab.Screen name="Criar Diário" component={CreateDiary}/>
+        </Tab.Navigator>
+      </NavigationContainer>
+
     </NativeBaseProvider>
   );
 }

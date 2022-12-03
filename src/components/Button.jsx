@@ -29,11 +29,12 @@ const styles = StyleSheet.create({
     },
     button:{
         padding: 10,
-        paddingHorizontal:80,
+        paddingHorizontal:20,
         backgroundColor:'#0EA5E9',
         borderRadius:10,
         alignItems:'center',
-        marginTop:20
+        marginTop:20,
+        marginHorizontal: 20
     }
 
 
