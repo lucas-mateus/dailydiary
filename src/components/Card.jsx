@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet, ViewBase, TouchableOpacity } from 'react-native'
 import React from 'react'
 
-export function Card({title, date}) {
+export function Card({title, date, ...rest}) {
   return (
-    <TouchableOpacity activeOpacity={0.5}>
-        <View style={styles.cardWrapper}>
+    <TouchableOpacity activeOpacity={0.5} style={styles.cardWrapper}>
+        <View >
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.date}>{date}</Text>
         </View>
@@ -18,9 +18,8 @@ const styles = StyleSheet.create({
         width: 332,
         height: 80,
         paddingHorizontal: 20,
-        marginHorizontal:20,
+        marginVertical: 8,
         alignContent: 'center',
-        marginVertical:80,
         justifyContent: 'center',
         borderRadius:4,
         borderBottomColor: '#9B51E0',
