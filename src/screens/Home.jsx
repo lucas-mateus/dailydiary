@@ -5,20 +5,36 @@ import { FlatList } from 'react-native'
 import { StyleSheet } from 'react-native'
 import { Text, View } from 'react-native'
 import { Card }from '../components/Card'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
-
-export default function Home({navigation, route}) {
-
+export default function Home({route, navigation}) {
+  
   const [gretting, setNewGretting] = useState('')
-  const diaries = []
+  const [diariesList, setDiariesList] = useState([])
 
+  const getData = async ()=>{
+    try{
+      AsyncStorage.getItem('@diary').then( data =>{
+        if(data != null){
+          setDiariesList(data)
+        }else{
+        }
+      })
+
+    }catch(e){
+      console.log('FALHA NA BUSCA =======>',e)
+    }
+  }
+
+  console.log('meu diarios listas =====> ',diariesList)
+    
   useEffect(()=>{
     const currentHour = new Date().getHours();
     
     if(currentHour < 12){
       setNewGretting('bom dia')
-    }else if(currentHour>= 12 && currentHour <= 18){
+    }else if(currentHour>= 12 && currentHour < 18){
       setNewGretting('boa tarde')
     }else{
       setNewGretting('boa noite')
@@ -32,25 +48,22 @@ export default function Home({navigation, route}) {
       <View style={styles.headerWrapper}>
         <Text style={styles.gretting}>Olá, {gretting}</Text>
         <Text style={styles.totalDiaries}>Total de diários:
-          <Text style={{fontWeight:'900'}}> 4</Text>
+          <Text style={{fontWeight:'900'}}> {diariesList.length}</Text>
         </Text>
       </View>
 
-      <View style={styles.cardWrapper}>
-      
-       <FlatList
-          data={diaries}
+      <View style={styles.cardWrapper}>      
+
+        <FlatList
           showsVerticalScrollIndicator={false}
+          data={diariesList}
           keyExtractor={item => item.id}
-          renderItem={({item})=>{
-            <Card
-              title={item.title}
-              date={item.formatedDate}
-            />
-          }}
-          
-          />        
-          
+          renderItem={({item})=>(
+            <Card title={item.title} date={item.date}/>
+          )}
+        
+        /> 
+
       </View>
 
     </View>
@@ -78,6 +91,6 @@ const styles = StyleSheet.create({
   cardWrapper:{
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20
+    marginTop: 20,
   }
 })
