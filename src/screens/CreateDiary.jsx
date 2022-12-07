@@ -3,9 +3,9 @@ import React from "react";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { useState } from "react";
-import { getData, storeData } from "../storage/diaries";
+import { storeData } from "../storage/diaries";
 
-export function CreateDiary() {
+export function CreateDiary({ navigation }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -14,7 +14,7 @@ export function CreateDiary() {
     setTitle("");
   }
 
-  const handleCreateDiary = () => {
+  const handleCreateDiary = async () => {
     if (title == "" || content == "") {
       alert("Seu diário precisa ter um título e conteúdo!");
       clear();
@@ -31,7 +31,7 @@ export function CreateDiary() {
       content: content,
     };
 
-    storeData(data);
+    await storeData(data);
     clear();
 
     navigation.navigate("Home");
