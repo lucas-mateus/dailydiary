@@ -1,13 +1,23 @@
 import { useFocusEffect } from "@react-navigation/native";
-import React from "react";
-import { useEffect, useState } from "react";
-import { StyleSheet, FlatList, Text, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  FlatList,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import { Card } from "../components/Card";
 import { getData, clearAll } from "../storage/diaries";
 
 export default function Home({ route, navigation }) {
   const [gretting, setNewGretting] = useState("");
   const [diariesList, setDiariesList] = useState([]);
+
+  const handleClearAll = async () => {
+    await clearAll();
+    setDiariesList([]);
+  };
 
   useEffect(() => {
     const currentHour = new Date().getHours();
@@ -36,11 +46,20 @@ export default function Home({ route, navigation }) {
   return (
     <View>
       <View style={styles.headerWrapper}>
-        <Text style={styles.gretting}>Olá, {gretting}!</Text>
-        <Text style={styles.totalDiaries}>
-          Total de diários:
-          <Text style={{ fontWeight: "900" }}> {diariesList.length || 0}</Text>
-        </Text>
+        <View>
+          <Text style={styles.gretting}>Olá, {gretting}!</Text>
+          <Text style={styles.totalDiaries}>
+            Total de diários:
+            <Text style={{ fontWeight: "900" }}>
+              {" "}
+              {diariesList.length || 0}
+            </Text>
+          </Text>
+        </View>
+
+        <TouchableOpacity style={styles.deleteButton} onPress={handleClearAll}>
+          <Text style={styles.buttonText}>Delete All</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.cardWrapper}>
@@ -64,6 +83,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: "#0EA5E9",
     marginHorizontal: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   gretting: {
     fontSize: 20,
@@ -80,5 +101,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 30,
     marginBottom: 150,
+  },
+  deleteButton: {
+    backgroundColor: "#e01115",
+    width: 100,
+    padding: 10,
+    borderRadius: 100,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "700",
   },
 });
