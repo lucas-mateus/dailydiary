@@ -58,7 +58,7 @@ export default function Home({ route, navigation }) {
         </View>
 
         <TouchableOpacity style={styles.deleteButton} onPress={handleClearAll}>
-          <Text style={styles.buttonText}>Delete All</Text>
+          <Text style={styles.buttonText}>Apagar todos</Text>
         </TouchableOpacity>
       </View>
 
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     backgroundColor: "#e01115",
-    width: 100,
+    width: 140,
     padding: 10,
     borderRadius: 100,
     justifyContent: "center",
